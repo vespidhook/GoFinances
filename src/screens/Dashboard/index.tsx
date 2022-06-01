@@ -1,8 +1,7 @@
 import React from "react";
-import { getBottomSpace } from "react-native-iphone-x-helper";
 
 import { HighlightCard } from "../../components/HighlightCard";
-import { TransactionCard } from "../../components/TransactionCard";
+import { TransactionCard, TransactionCardProps } from "../../components/TransactionCard";
  
 import { 
   Container,
@@ -20,36 +19,46 @@ import {
   TransactionList
  } from "./styles";
 
+export interface DataListProps extends TransactionCardProps {
+  id: string;
+}
+
 export function Dashboard() {
-  const data = [
-  {
-    title:"Conta de luz",
-    amount:"R$ 17.500,00",
-    category:{
-    name: "Energia",
-    icon: "lightbulb"
+  const data: DataListProps[] = [
+    {
+      id: '1',
+      type: 'negative',
+      title:"Conta de luz",
+      amount:"R$ 17.500,00",
+      category:{
+        name: "Energia",
+        icon: "dollar-sign"
+      },
+      date:"13/04/2020",
     },
-    date:"13/04/2020",
-  },
-  {
-    title:"Conta de luz",
-    amount:"R$ 17.500,00",
-    category:{
-    name: "Energia",
-    icon: "lightbulb"
+    {
+      id: '2',
+      type: 'positive',
+      title:"Conta de luz",
+      amount:"R$ 500,00",
+      category:{
+        name: "Energia",
+        icon: "dollar-sign"
+      },
+      date:"13/04/2020",
     },
-    date:"13/04/2020",
-  },
-  {
-    title:"Conta de luz",
-    amount:"R$ 17.500,00",
-    category:{
-    name: "Energia",
-    icon: "lightbulb"
+    {
+      id: '3',
+      type: 'positive',
+      title:"Conta de luz",
+      amount:"R$ 555,00",
+      category:{
+        name: "Energia",
+        icon: "dollar-sign"
+      },
+      date:"13/04/2020",
     },
-    date:"13/04/2020",
-  },
-]
+  ]
   return (
     <Container>
       <Header>   
@@ -76,13 +85,13 @@ export function Dashboard() {
         <HighlightCard 
           type="down"
           title="Saidas" 
-          amount="R$ 17.500,00" 
+          amount="R$ 500,00" 
           lastTransaction="Última saída dia 13 de abril"
         />
         <HighlightCard 
           type="total"
           title="Total" 
-          amount="R$ 17.500,00" 
+          amount="R$ 100,00" 
           lastTransaction="01 à 16 de abril"
         />        
       </HighlightCards>
@@ -92,11 +101,8 @@ export function Dashboard() {
 
         <TransactionList
           data={data}
+          keyExtractor={ item => item.id }
           renderItem={({ item }) => <TransactionCard data={item}/>}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ 
-            paddingBottom: getBottomSpace()
-          }}
         />
           
       </Transactions>
